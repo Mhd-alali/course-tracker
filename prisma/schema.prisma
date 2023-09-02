@@ -15,5 +15,4 @@ model Course {
   name        String @unique
   path        String
   description String
-  content     String
 }

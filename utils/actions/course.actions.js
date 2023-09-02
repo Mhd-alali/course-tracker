@@ -17,10 +17,10 @@ export const checkIfValidPath = async (path) => {
     }
 };
 
-function getFolderContents(folderPath) {
+export const getFolderContents = (folderPath) => {
     const folderContents = {};
 
-    const files = fs.readdirSync(folderPath);
+    const files = fs.readdirSync(folderPath,{withFileTypes:false});
 
     files.forEach(async file => {
         const filePath = path.join(folderPath, file);
@@ -34,7 +34,7 @@ function getFolderContents(folderPath) {
     });
 
     return folderContents;
-}
+};
 
 export const createCourse = async ({ name, path, description }) => {
 
@@ -42,9 +42,9 @@ export const createCourse = async ({ name, path, description }) => {
     // process.then(video => {
     //     video.metadata.duration.seconds  
     // })
-    const content = JSON.stringify(getFolderContents(path));
+
 
     await prisma.course.create({
-        data: { description, name, path, content }
+        data: { description, name, path }
     });
 };

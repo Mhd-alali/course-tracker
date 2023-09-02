@@ -34,7 +34,7 @@ export default function RootLayout({ children }) {
             <ThemeToggle />
           </div>
         </nav>
-        <div className="container">
+        <div className="">
           {children}
         </div>
       </body>
