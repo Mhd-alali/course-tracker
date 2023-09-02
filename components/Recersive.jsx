@@ -2,18 +2,12 @@
 import { Button } from '@/components/ui/button';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { ChevronsUpDown } from 'lucide-react';
+import Link from 'next/link';
 import { useState } from 'react';
 
-export default function Recersive({ data }) {
+export default function Recersive({ data, course, path }) {
     const isObject = (obj) => typeof obj === 'object' && obj !== null;
-
-    if (!isObject(data)) return (<CollapsibleContent >
-        <Button variant='link' className='text-left'>
-            {data}
-        </Button>
-    </CollapsibleContent>);
-
-
+    const [isOpen, setIsOpen] = useState(true);
     const entries = Object.entries(data);
     return (
         <>
@@ -32,18 +26,21 @@ export default function Recersive({ data }) {
                                 </CollapsibleTrigger>
                             </div>
                             <CollapsibleContent className='mt-2'>
-                                <Recersive data={value} />
+                                <Recersive data={value} course={course} path={`${path}/${key}`}/>
                             </CollapsibleContent>
                         </Collapsible>;
                     };
                     return <Value key={key} />;
                 }
-                else
-                    return <CollapsibleContent className='ml-20' key={key}>
-                        <Button variant='link' className='text-left'>
-                            {value}
+                else {
+                    return <CollapsibleContent key={value}>
+                        <Button variant='link' className='text-left ml-10'>
+                            <Link href={`/courses/${course.id}/${path}/${value}`}>
+                                {value}
+                            </Link>
                         </Button>
                     </CollapsibleContent>;
+                };
 
             })}
         </>
