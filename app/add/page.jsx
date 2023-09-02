@@ -24,7 +24,7 @@ export default function AddPage() {
             description: formData.get('description'),
         };
         await createCourse(data);
-        router.push('/courses');
+        // router.push('/courses');
     };
 
     const handlePathChange = async (e) => {
